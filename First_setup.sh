@@ -1,8 +1,5 @@
 #!/bin/bash
 
-# We want to execute as root
-sudo su
-
 # Make folder for all our installation stuff, we will use admin
 mkdir /home/admin
 cp -R ../Radiomics-GPU-Server /home/admin
