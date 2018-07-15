@@ -12,6 +12,6 @@ cd Python-2.7.15
 
 # Configure with the Module folder as target folder
 mkdir /packages/python/2.7.15
-./configure --prefix=/packages/python/2.7.15
-make
+./configure --prefix=/packages/python/2.7.15 --enable-optimizations
+make -j4
 make install
