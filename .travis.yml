@@ -1,0 +1,12 @@
+sudo: required
+
+language: bash
+
+services:
+    - docker
+
+before install:
+    - docker pull ubuntu:18.04
+
+script:
+    - First_setup.sh
