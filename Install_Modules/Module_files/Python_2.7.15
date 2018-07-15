@@ -1,0 +1,9 @@
+#%Module1.0
+
+module-whatis "Activate Python 2.7.15"
+
+# python
+set pythonroot /packages/python/2.2.15
+prepend-path PATH "${pythonroot}/bin"
+prepend-path LD_LIBRARY_PATH "${pythonroot}/lib:${pythonroot}/lib/python2.7"
+prepend-path PYTHONPATH "${pythonroot}"
