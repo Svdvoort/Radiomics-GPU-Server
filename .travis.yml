@@ -2,11 +2,12 @@ sudo: required
 
 language: bash
 
-services:
-    - docker
+# Ultimately use a docker to test on 18.04
+#services:
+#    - docker
 
-before install:
-    - docker pull ubuntu:18.04
+#before install:
+#    - docker pull ubuntu:18.04
 
 script:
     - bash ./First_setup.sh
