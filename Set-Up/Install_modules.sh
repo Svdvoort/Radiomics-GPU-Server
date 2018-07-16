@@ -19,4 +19,4 @@ source /etc/profile.d/modules.sh
 #source /etc/profile.d/modules.csh
 
 # Ensure modules actually loads
-module
+module list

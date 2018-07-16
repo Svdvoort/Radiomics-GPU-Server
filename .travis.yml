@@ -11,4 +11,4 @@ before install:
 script:
     - bash ./First_setup.sh
     - bash ./Set-Up/Install_modules.sh
-    #- bash ./Install_Modules/Install_python_2.7.15.sh
+    - bash ./Install_Modules/Install_python_2.7.15.sh
