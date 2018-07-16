@@ -1,8 +1,8 @@
-#!/bin/sh
+#!/bin/bash
 
 # Update python version to the required version. Rest of script should work
 # Don't forget to make a module script and a version file if it doesn't exist yet!
-python_version="2.7.15"
+python_version="2.7.13"
 
 python -V
 # Make folder to store temporary files and get source
@@ -30,21 +30,12 @@ cp /home/admin/Radiomics-GPU-Server/Install_Modules/Module_files/python_version 
 rm -R /home/admin/temp_packages/python_"$python_version"
 
 # Check if properly installed
-# Need to resource modules because otherwise it doesn't load
-
-echo "Blablablab"
-
-source /etc/profile.d/modules.sh
-# module list
-
-#source /etc/profile.d/modules.sh
-#module load python/"$python_version"
-#python -V
+python -V
 
 # Check if everything actually worked and the correct version is loaded
-#pyv="$(python -c 'import platform; print(platform.python_version())')"
-#if [ "$pyv" == "$python_version" ]; then
-#    exit(0)
-#else
-#    exit(1)
-#fi
+pyv="$(python -c 'import platform; print(platform.python_version())')"
+if [ "$pyv" == "$python_version" ]; then
+   exit(0)
+else
+   exit(1)
+fi

@@ -5,10 +5,15 @@ RUN apt-get update
 RUN apt-get dist-upgrade -y
 RUN apt-get autoremove
 RUN apt-get autoclean
-RUN apt-get install -y git
+RUN apt-get install -y git wget
 
-RUN git clone https://github.com/Svdvoort/Radiomics-GPU-Server /home/test/Radiomics-GPU-Server
+# Need timezone for tzdata install
+ENV TZ=Europe/Amsterdam
+RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
+
+ADD . /home/test/Radiomics-GPU-Server
 WORKDIR /home/test/Radiomics-GPU-Server
 
 RUN ./First_setup.sh
-RUN ./Install_modules.sh
+RUN ./Set-Up/Install_modules.sh
+RUN ./Install_Modules/Install_python_2.7.15.sh

@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 # Update python version to the required version. Rest of script should work
 # Don't forget to make a module script and a version file if it doesn't exist yet!
