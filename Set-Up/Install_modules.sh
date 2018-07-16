@@ -12,3 +12,5 @@ sudo make distclean
 
 sudo ln -s /usr/share/Modules/init/profile.sh /etc/profile.d/modules.sh
 sudo ln -s /user/share/Modules/init/profile.csh /etc/profile.d/modules.csh
+
+modules
