@@ -10,7 +10,13 @@ sudo make
 sudo make install
 sudo make distclean
 
+# Make links such that modules is loaded at start-up
 sudo ln -s /usr/share/Modules/init/profile.sh /etc/profile.d/modules.sh
 sudo ln -s /user/share/Modules/init/profile.csh /etc/profile.d/modules.csh
 
+# Source them so they're loaded Now
+source /etc/profile.d/modules.sh
+source /etc/profile.d/modules.csh
+
+# Ensure modules actually loads
 modules
