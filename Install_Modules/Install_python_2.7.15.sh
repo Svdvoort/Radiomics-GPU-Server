@@ -23,5 +23,15 @@ sudo cp /home/admin/Radiomics-GPU-Server/Install_Modules/Module_files/Python_2.7
 sudo cp /home/admin/Radiomics-GPU-Server/Install_Modules/Module_files/python_version /etc/modulefiles/python/.version
 
 # Check if properly installed
+# Need to resource modules because otherwise it doesn't load
+source /etc/profile.d/modules.sh
 module load python/2.7.15
 python -V
+
+# Check if everything actually worked and the correct version is loaded
+pyv="$(python -c 'import platform; print(platform.python_version())')"
+if [ "$pyv" == "2.7.15" ]; then
+    echo "Correct version"
+else
+    >&2 echo "Wrong version"
+fi
