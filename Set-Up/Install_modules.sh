@@ -1,10 +1,10 @@
 #!/bin/bash
 
 sudo mkdir /home/admin/Modules
-git clone --branch v4.1.3 --depth 1 https://github.com/cea-hpc/modules.git /home/admin/Modules
-cd /home/admin/Modules
+sudo git clone --branch v4.1.3 --depth 1 https://github.com/cea-hpc/modules.git /home/admin/Modules
 
 sudo apt-get install -y make sed grep autoconf automake autopoint gcc tcl-dev dejagnu python
+cd /home/admin/Modules
 sudo ./configure --prefix=/usr/share/Modules --modulefilesdir=/etc/modulefiles
 sudo make
 sudo make install
