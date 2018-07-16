@@ -32,8 +32,10 @@ sudo rm -R /home/admin/temp_packages/python_"$python_version"
 # Check if properly installed
 # Need to resource modules because otherwise it doesn't load
 
+echo "Blablablab"
+
 source /etc/profile.d/modules.sh
-module list
+# module list
 
 #source /etc/profile.d/modules.sh
 #module load python/"$python_version"
