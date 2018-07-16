@@ -9,7 +9,7 @@ language: bash
 #before install:
 #    - docker pull ubuntu:18.04
 
-before script:
+install:
     - bash ./First_setup.sh
     - bash ./Set-Up/Install_modules.sh
 
