@@ -13,7 +13,7 @@ sudo mkdir /home/admin/temp_packages/python_"$python_version"
 cd /home/admin/temp_packages/python_"$python_version"
 sudo wget https://www.python.org/ftp/python/"$python_version"/Python-"$python_version".tgz
 sudo tar -xzf Python-"$python_version".tgz
-cd Python-"$python_version".tgz
+cd Python-"$python_version"
 
 # Configure with the Module folder as target folder
 sudo mkdir /packages/python/"$python_version"
