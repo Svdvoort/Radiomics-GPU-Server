@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 # Update python version to the required version. Rest of script should work
 # Don't forget to make a module script and a version file if it doesn't exist yet!
@@ -6,18 +6,18 @@ python_version="3.7.0"
 
 python -V
 # Make folder to store temporary files and get source
-sudo mkdir /home/admin/temp_packages/
-sudo mkdir /home/admin/temp_packages/python_"$python_version"
+mkdir /home/admin/temp_packages/
+mkdir /home/admin/temp_packages/python_"$python_version"
 
 
 cd /home/admin/temp_packages/python_"$python_version"
-sudo wget https://www.python.org/ftp/python/"$python_version"/Python-"$python_version".tgz
-sudo tar -xzf Python-"$python_version".tgz
+wget https://www.python.org/ftp/python/"$python_version"/Python-"$python_version".tgz
+tar -xzf Python-"$python_version".tgz
 cd Python-"$python_version"
 
 # Configure with the Module folder as target folder
-sudo mkdir /packages/python/"$python_version"
-sudo ./configure --prefix=/packages/python/"$python_version" --enable-optimizations
+mkdir /packages/python/"$python_version"
+./configure --prefix=/packages/python/"$python_version" --enable-optimizations
 sudo make -j4
 sudo make install
 
