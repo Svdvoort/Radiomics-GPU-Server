@@ -1,6 +1,4 @@
 #!/bin/bash
-source /etc/profile.d/modules.sh
-module list
 
 # Update python version to the required version. Rest of script should work
 # Don't forget to make a module script and a version file if it doesn't exist yet!
@@ -33,14 +31,18 @@ sudo rm -R /home/admin/temp_packages/python_"$python_version"
 
 # Check if properly installed
 # Need to resource modules because otherwise it doesn't load
+
+source /etc/profile.d/modules.sh
+module list
+
 #source /etc/profile.d/modules.sh
-module load python/"$python_version"
-python -V
+#module load python/"$python_version"
+#python -V
 
 # Check if everything actually worked and the correct version is loaded
-pyv="$(python -c 'import platform; print(platform.python_version())')"
-if [ "$pyv" == "$python_version" ]; then
-    exit(0)
-else
-    exit(1)
-fi
+#pyv="$(python -c 'import platform; print(platform.python_version())')"
+#if [ "$pyv" == "$python_version" ]; then
+#    exit(0)
+#else
+#    exit(1)
+#fi
