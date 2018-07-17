@@ -14,6 +14,7 @@ RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 ADD . /home/test/Radiomics-GPU-Server
 WORKDIR /home/test/Radiomics-GPU-Server
 
-RUN ./First_setup.sh
+RUN ./Set-Up/First_setup.sh
 RUN ./Set-Up/Install_modules.sh
-RUN ./Install_Modules/Install_python_2.7.15.sh
+RUN ./Install_Modules/Install_python_general.sh 2.7.13
+RUN ./Install_Modules/Install_python_general.sh 2.7.15

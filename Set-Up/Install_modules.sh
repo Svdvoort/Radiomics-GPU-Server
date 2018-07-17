@@ -1,11 +1,13 @@
 #!/bin/bash
 
 mkdir /home/admin/Modules
+# We install version 4.1.3
 git clone --branch v4.1.3 --depth 1 https://github.com/cea-hpc/modules.git /home/admin/Modules
 
-apt-get install -y make sed grep autoconf automake autopoint gcc tcl-dev dejagnu python
+# Install the required packages
+apt-get install -y make sed grep autoconf automake autopoint gcc tcl-dev dejagnu python libffi-dev
 cd /home/admin/Modules
- ./configure --prefix=/usr/share/Modules --modulefilesdir=/etc/modulefiles
+./configure --prefix=/usr/share/Modules --modulefilesdir=/etc/modulefiles
 make
 make install
 make distclean
