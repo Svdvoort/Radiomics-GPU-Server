@@ -10,7 +10,7 @@ before install:
     - docker pull ubuntu:18.04
 
 install:
-    - bash ./First_setup.sh
+    - bash ./Set-Up/First_setup.sh
 #    - bash ./Set-Up/Install_modules.sh
     - bash ./Set-Up/Install_slurm.sh
 
