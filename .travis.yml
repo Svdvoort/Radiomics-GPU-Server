@@ -11,7 +11,8 @@ before install:
 
 install:
     - bash ./First_setup.sh
-    - bash ./Set-Up/Install_modules.sh
+#    - bash ./Set-Up/Install_modules.sh
+    - bash ./Set-Up/Install_slurm.sh
 
 script:
     - bash ./Install_Modules/Install_python_2.7.15.sh
