@@ -1,9 +1,0 @@
-#%Module1.0
-
-module-whatis "Activate Python 3.7.0"
-
-# python
-set pythonroot /packages/python/3.7.0
-prepend-path PATH "${pythonroot}/bin"
-prepend-path LD_LIBRARY_PATH "${pythonroot}/lib:${pythonroot}/lib/python3.7"
-prepend-path PYTHONPATH "${pythonroot}"

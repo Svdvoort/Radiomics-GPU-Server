@@ -1,5 +1,6 @@
 #!/bin/bash
 
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null && pwd )"
 # Update python version to the required version. Rest of script should work
 # Don't forget to make a module script and a version file if it doesn't exist yet!
 python_version=$1
@@ -21,9 +22,9 @@ make install
 
 # Copy modules files to correct directories
 mkdir -p /etc/modulefiles/python
-./Module_files/create_python_module_file.sh "${python_version}" "./Module_files/python_${python_version}"
-cp ./Module_files/Python_"${python_version}" /etc/modulefiles/python/"${python_version}"
-cp ./Module_files/python_version /etc/modulefiles/python/.version
+DIR/Module_files/create_python_module_file.sh "${python_version}" "./Module_files/python_${python_version}"
+cp $DIR/Module_files/Python_"${python_version}" /etc/modulefiles/python/"${python_version}"
+cp $DIR/Module_files/python_version /etc/modulefiles/python/.version
 
 # Clean-up
 rm -R /home/admin/temp_packages/python_"${python_version}"

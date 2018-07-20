@@ -1,0 +1,12 @@
+#%Module1.0
+
+set	CUDA_VERSION	9.2.148
+
+module-whatis	"loads the CUDA $CUDA_VERSION environment"
+
+set cudaroot /usr/local/cuda-9.2
+prepend-path PATH "${cudaroot}/bin"
+prepend-path LD_LIBRARY_PATH "${cudaroot}/lib64"
+prepend-path LD_LIBRARY_PATH "${cudaroot}/lib"
+
+conflict cuda

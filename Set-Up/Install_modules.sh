@@ -18,6 +18,9 @@ ln -s /usr/share/Modules/init/profile.csh /etc/profile.d/modules.csh
 
 # Source them so they're loaded Now
 source /etc/profile.d/modules.sh
+# Also make sure it's loaded at start-up
+echo "source /etc/profile.d/modules.sh" >> /etc/profile
+echo "source /etc/profile.d/modules.sh" >> /etc/bash.bashrc
 
 # Ensure modules actually loads
 module list
