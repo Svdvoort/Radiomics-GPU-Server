@@ -9,7 +9,7 @@ python_tensorflow_directory="/packages/tensorflow/python_${python_version}/${ten
 # Start with purge to make sure we have everything we actually want
 source /etc/profile.d/modules.sh
 
-module purge all
+module purge
 module load python/${python_version}
 module load cuda/9.2.148
 module load cudnn/9.2-v7.1
@@ -43,21 +43,23 @@ apt-get -y install bazel
 # Get python dependencies for tensorflow
 python_version_elements=(${python_version//./ })
 python_main_version="${python_version_elements[0]}"
-if [ python_main_version = "2" ]; then
+if [ $python_main_version = "2" ]; then
   # Python 2
   apt-get install -y python-dev python-pip python-wheel
   /packages/python/${python_version}/bin/pip install numpy
   /packages/python/${python_version}/bin/pip install enum34
   /packages/python/${python_version}/bin/pip install mock
-elif [ python_main_version = "3" ]; then
+elif [ $python_main_version = "3" ]; then
   # Python 3
   apt-get install -y python3-dev python3-pip python3-wheel
-  /packages/python/${python_version}/bin/pip3 install install numpy
-  /packages/python/${python_version}/bin/pip3 install install enum34
-  /packages/python/${python_version}/bin/pip3 install install mock
-
+  /packages/python/${python_version}/bin/pip3 install numpy
+  /packages/python/${python_version}/bin/pip3 install enum34
+  /packages/python/${python_version}/bin/pip3 install mock
+  alias python='python3'
+fi
+#
 # # Get tensorflow
-# git clone https://github.com/tensorflow/tensorflow
+git clone https://github.com/tensorflow/tensorflow
 cd tensorflow
 # git checkout v${tensorflow_version}
 echo "Now going to configure tensorflow"
@@ -70,13 +72,14 @@ echo "cuDNN path: /packages/cudnn/Cuda-9.2/v7.1/cuda/"
 echo "Accept TensorRT support"
 echo "TensorRT path: /packages/tensorrt/4.0.1.6/TensorRT-4.0.1.6/"
 echo "Apart from this accept all default values again"
-#./configure
+./configure
 
 # There is an error in Ubuntu 18.04 which will make bazel not get the correct packages
 # This has to be fixed manually:
 # Download jre from here: http://www.oracle.com/technetwork/java/javase/downloads/jre10-downloads-4417026.html
 # Extract jre-10.0.2/lib/security/cacerts to ~/cacerts
 # sudo cp -i ~/cacerts /etc/ssl/certs/java
+# Then reboot the computer
 
 echo "If bazel gives an error: Encountered error while reading extension file 'closure/defs.bzl'"
 echo "and: All mirrors are down: [java.lang.RuntimeException: Unexpected error: java.security.InvalidAlgorithmParameterException: the trustAnchors parameter must be non-empty]"
@@ -86,3 +89,6 @@ bazel build --config=opt --verbose_failures //tensorflow/tools/pip_package:build
 
 bazel-bin/tensorflow/tools/pip_package/build_pip_package ${python_tensorflow_directory}
 /packages/python/${python_version}/bin/pip install ${python_tensorflow_directory}/*.whl
+
+cd $DIR
+rm -R ${temp_dir}
