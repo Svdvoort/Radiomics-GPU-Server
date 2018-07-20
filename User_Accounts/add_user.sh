@@ -7,4 +7,5 @@ if [ "$2" = "sudo" ]; then
 else
   adduser "$1"
 fi
-# Check if sudo, then add
+# Also add to slurm system
+sacctmgr -i create user $1 defaultaccount=researchers partition=GPU

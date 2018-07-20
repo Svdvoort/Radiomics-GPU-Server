@@ -1,7 +1,7 @@
 #!/bin/bash
 
 tensorflow_version="1.9.0"
-python_version="2.7.15"
+python_version="3.7.0"
 
 python_tensorflow_directory="/packages/tensorflow/python_${python_version}/${tensorflow_version}"
 

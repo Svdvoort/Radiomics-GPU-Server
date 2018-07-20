@@ -43,7 +43,7 @@ curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py
 python_version_elements=(${python_version//./ })
 short_python_version="${python_version_elements[0]}.${python_version_elements[1]}"
 
-/packages/python/${python_version}/bin/${short_python_version} get-pip.py
+/packages/python/${python_version}/bin/python${short_python_version} get-pip.py
 
 # Clean-up
 rm -R /home/admin/temp_packages/python_"${python_version}"
