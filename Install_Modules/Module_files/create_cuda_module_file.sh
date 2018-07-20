@@ -17,6 +17,7 @@ echo "set cudaroot /usr/local/cuda-${short_cuda_version}" >> $module_file
 echo "prepend-path PATH \"\${cudaroot}/bin\"" >> $module_file
 echo "prepend-path LD_LIBRARY_PATH \"\${cudaroot}/lib64\"" >> $module_file
 echo "prepend-path LD_LIBRARY_PATH \"\${cudaroot}/lib\"" >> $module_file
+echo "prepend-path LD_LIBRARY_PATH \"\${cudaroot}/extras/CUPTI/lib64\"" >> $module_file
 
 echo "" >> $module_file
 echo "conflict cuda" >> $module_file
