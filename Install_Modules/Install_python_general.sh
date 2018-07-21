@@ -30,8 +30,8 @@ make install
 
 # Copy modules files to correct directories
 mkdir -p /etc/modulefiles/python
-${DIR}/Module_files/create_python_module_file.sh "${python_version}" "/etc/modulefiles/python/${python_version}"
-cp ${DIR}/Module_files/python_version /etc/modulefiles/python/.version
+${DIR}/Module_files/create_python_module_file.sh "${python_version}" "/etc/modulefiles/compilers/python/${python_version}"
+cp ${DIR}/Module_files/python_version /etc/modulefiles/compilers/python/.version
 
 
 #We're going to install a specific version of pip for this version of python
