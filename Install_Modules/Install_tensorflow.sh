@@ -1,7 +1,7 @@
 #!/bin/bash
 
 tensorflow_version="1.9.0"
-python_version="3.7.0"
+python_version="3.6.6"
 
 python_tensorflow_directory="/packages/tensorflow/python_${python_version}/${tensorflow_version}"
 
@@ -14,6 +14,7 @@ module load python/${python_version}
 module load cuda/9.2.148
 module load cudnn/9.2-v7.1
 module load tensorrt/4.0.1.6
+module load nccl/2.2.13
 
 
 # We will install Tensorflow from source to inlude all optimizations
@@ -61,7 +62,7 @@ fi
 # # Get tensorflow
 git clone https://github.com/tensorflow/tensorflow
 cd tensorflow
-# git checkout v${tensorflow_version}
+git checkout v${tensorflow_version}
 echo "Now going to configure tensorflow"
 echo "Accept all defaults untill it asks for CUDA installation, here selection yes"
 echo "Then input the following:"
@@ -71,6 +72,8 @@ echo "cuDNN version: 7.1"
 echo "cuDNN path: /packages/cudnn/Cuda-9.2/v7.1/cuda/"
 echo "Accept TensorRT support"
 echo "TensorRT path: /packages/tensorrt/4.0.1.6/TensorRT-4.0.1.6/"
+echo "nccl version 2.2"
+echo "nccl path: /packages/nccl/2.2.13/nccl_2.2.13-1+cuda9.2_x86_64/"
 echo "Apart from this accept all default values again"
 ./configure
 
@@ -91,4 +94,4 @@ bazel-bin/tensorflow/tools/pip_package/build_pip_package ${python_tensorflow_dir
 /packages/python/${python_version}/bin/pip install ${python_tensorflow_directory}/*.whl
 
 cd $DIR
-rm -R ${temp_dir}
+#rm -R ${temp_dir}
