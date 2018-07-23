@@ -16,7 +16,12 @@ else
 fi
 
 # Force user to change password on next log-in
-passwd --expire "$1"
+#passwd --expire "$1"
+
+# Create a folder for them on the data disk
+mkdir /media/data/$1
+chmod -r 744 /media/data/$1
+
 
 # Also add to slurm system
 sacctmgr -i create user $1 defaultaccount=researchers partition=GPU
