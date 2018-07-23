@@ -19,8 +19,9 @@ fi
 #passwd --expire "$1"
 
 # Create a folder for them on the data disk
-mkdir /media/data/$1
-chmod -r 744 /media/data/$1
+mkdir -p "/media/data/${1}"
+chown -R fcalvet "/media/data/${1}"
+chmod -R 744 "/media/data/${1}"
 
 
 # Also add to slurm system
