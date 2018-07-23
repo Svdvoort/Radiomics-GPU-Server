@@ -16,7 +16,7 @@ else
 fi
 
 # Force user to change password on next log-in
-#passwd --expire "$1"
+passwd --expire "$1"
 
 # Create a folder for them on the data disk
 mkdir -p "/media/data/${1}"
