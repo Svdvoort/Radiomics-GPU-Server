@@ -20,7 +20,7 @@ fi
 
 # Create a folder for them on the data disk
 mkdir -p "/media/data/${1}"
-chown -R fcalvet "/media/data/${1}"
+chown -R ${1}:${1} "/media/data/${1}"
 chmod -R 744 "/media/data/${1}"
 
 
