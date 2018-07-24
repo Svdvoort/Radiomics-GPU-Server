@@ -18,5 +18,11 @@ echo "prepend-path PATH \"\${pythonroot}/bin\"" >> $module_file
 echo "prepend-path LD_LIBRARY_PATH \"\${pythonroot}/lib:\${pythonroot}/lib/${short_python_version}\"" >> $module_file
 echo "prepend-path PYTHONPATH \"\${pythonroot}\"" >> $module_file
 
+# In case of python3 set python keyword to python3 as well
+if [ python_version_elements[0] -eq "3" ]; then
+  echo "" >> $module_file
+  echo "set-alias \"python3\" \"python\"
+fi
+
 echo "" >> $module_file
 echo "conflict python" >> $module_file
