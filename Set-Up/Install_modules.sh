@@ -16,6 +16,13 @@ make distclean
 ln -s /usr/share/Modules/init/profile.sh /etc/profile.d/modules.sh
 ln -s /usr/share/Modules/init/profile.csh /etc/profile.d/modules.csh
 
+# We make some directories that we automatically want to load on startup
+touch /usr/share/Modules/init/.modulespath
+/etc/modulefiles >> /usr/share/Modules/init/.modulespath
+/etc/modulefiles/compilers >> /usr/share/Modules/init/.modulespath
+/etc/modulefiles/nvidia-tools >> /usr/share/Modules/init/.modulespath
+
+
 # Source them so they're loaded Now
 source /etc/profile.d/modules.sh
 # Also make sure it's loaded at start-up
