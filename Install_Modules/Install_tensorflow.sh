@@ -24,7 +24,8 @@ if [[ $EUID -ne 0 ]]; then
    exit 1
 fi
 
-/packages/python/${python_version}/bin/pip${short_python_version} install --upgrade pip setuptools
+/packages/python/${python_version}/bin/pip${short_python_version} install --upgrade pip
+/packages/python/${python_version}/bin/pip${short_python_version} install setuptools==39.1.0
 
 temp_dir=/home/admin/temp_packages/tensorflow
 mkdir -p ${temp_dir}
