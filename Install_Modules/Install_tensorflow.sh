@@ -1,7 +1,7 @@
 #!/bin/bash
 
 tensorflow_version="1.9.0"
-python_version="2.7.15"
+python_version="3.5.5"
 
 python_tensorflow_directory="/packages/tensorflow/python_${python_version}/${tensorflow_version}"
 
@@ -93,7 +93,7 @@ echo "Check out the comments in source for a fix"
 bazel build --config=opt --verbose_failures //tensorflow/tools/pip_package:build_pip_package
 
 bazel-bin/tensorflow/tools/pip_package/build_pip_package ${python_tensorflow_directory}
-/packages/python/${python_version}/bin/pip${short_python_version} install --force-reinstall${python_tensorflow_directory}/*.whl
+/packages/python/${python_version}/bin/pip${short_python_version} install --ignore-installed ${python_tensorflow_directory}/*.whl
 
 cd $DIR
 rm -R ${temp_dir}
