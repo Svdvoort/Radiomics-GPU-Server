@@ -24,6 +24,8 @@ if [[ $EUID -ne 0 ]]; then
    exit 1
 fi
 
+/packages/python/${python_version}/bin/pip${short_python_version} install --upgrade pip setuptools
+
 temp_dir=/home/admin/temp_packages/tensorflow
 mkdir -p ${temp_dir}
 cd ${temp_dir}
@@ -56,7 +58,6 @@ elif [ $python_main_version = "3" ]; then
   /packages/python/${python_version}/bin/pip3 install numpy
   /packages/python/${python_version}/bin/pip3 install enum34
   /packages/python/${python_version}/bin/pip3 install mock
-  alias python='python3'
 fi
 #
 # # Get tensorflow
@@ -91,7 +92,7 @@ echo "Check out the comments in source for a fix"
 bazel build --config=opt --verbose_failures //tensorflow/tools/pip_package:build_pip_package
 
 bazel-bin/tensorflow/tools/pip_package/build_pip_package ${python_tensorflow_directory}
-/packages/python/${python_version}/bin/pip install ${python_tensorflow_directory}/*.whl
+/packages/python/${python_version}/bin/pip${short_python_version} install --force-reinstall${python_tensorflow_directory}/*.whl
 
 cd $DIR
-#rm -R ${temp_dir}
+rm -R ${temp_dir}
