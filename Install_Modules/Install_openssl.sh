@@ -9,7 +9,8 @@ openssl_URL='https://www.openssl.org/source/openssl-1.0.2o.tar.gz'
 mkdir -p /home/admin/temp_packages/openssl-1.0.2
 mkdir -p /packages/openssl1.0/
 cd /home/admin/temp_packages/openssl-1.0.2
-wget $openssl_URL | tar -xzf -
+wget ${openssl_URL}
+tar -xzf "openssl-1.0.2o.tar.gz"
 
 cd openssl-1.0.2o
 ./config --openssldir=/packages/openssl1.0/
