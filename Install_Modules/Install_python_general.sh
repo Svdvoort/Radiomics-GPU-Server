@@ -7,15 +7,14 @@ fi
 
 # This fix is needed since some Python versions do not find the openssl
 # library otherwise, and thus can't use pip
-export LD_LIBRARY_PATH=/usr/local/ssl/lib/:$LD_LIBRARY_PATH
+apt-get install libffi-dev libssl-dev zlib1g-dev
+apt-get install build-essential python-dev libssl-dev libncurses*-dev liblzma-dev libgdbm-dev libsqlite3-dev     libbz2-dev tk-dev
+export LD_LIBRARY_PATH=/usr/lib/ssl/:$LD_LIBRARY_PATH
 
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null && pwd )"
 # Update python version to the required version. Rest of script should work
 # Don't forget to make a module script and a version file if it doesn't exist yet!
 python_version=$1
-
-# Need some packages for ssl support
-apt-get install libffi-dev libssl-dev zlib1g-dev
 
 # Make folder to store temporary files and get source
 mkdir -p /home/admin/temp_packages/python_"${python_version}"
