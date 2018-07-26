@@ -7,8 +7,8 @@ fi
 
 # This fix is needed since some Python versions do not find the openssl
 # library otherwise, and thus can't use pip
-apt-get install libffi-dev libssl-dev zlib1g-dev
-apt-get install build-essential python-dev libssl-dev libncurses*-dev liblzma-dev libgdbm-dev libsqlite3-dev     libbz2-dev tk-dev
+apt-get install -y libffi-dev libssl-dev zlib1g-dev
+apt-get install -y build-essential python-dev libssl-dev libncurses*-dev liblzma-dev libgdbm-dev libsqlite3-dev     libbz2-dev tk-dev
 export LD_LIBRARY_PATH=/usr/lib/ssl/:$LD_LIBRARY_PATH
 
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null && pwd )"
