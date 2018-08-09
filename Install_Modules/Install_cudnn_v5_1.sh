@@ -33,4 +33,3 @@ tar -xzf ${cudnn_file} -C ${install_folder}
 
 mkdir -p /etc/modulefiles/cudnn/
 ${DIR}/Module_files/create_cudnn_module_file.sh "${cuda_version}" "${cudnn_version}" "/etc/modulefiles/cudnn/${cuda_version}-${cudnn_version}"
-cp ${DIR}/Module_files/cudnn_version_5_1 /etc/modulefiles/cudnn/.version
