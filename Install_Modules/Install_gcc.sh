@@ -15,7 +15,7 @@ apt-get install -y gcc-multilib g++-multilib libc6:i386 libstdc++6:i386 libc6-de
 
 # Install GCC version
 # Create an installation directorie
-install_dir=/usr/local/gcc-${gcc_version}
+install_dir=/packages/gcc/${gcc_version}
 temp_dir=/home/admin/temp_packages/gcc-${gcc_version}
 mkdir -p ${install_dir}
 mkdir -p ${temp_dir}
