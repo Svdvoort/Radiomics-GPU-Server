@@ -11,7 +11,7 @@ gcc_version=$1
 
 # Install prerequisites
 #apt-get install -y libgmp3-dev libmpfr-dev libmpfr-doc libmpfr4 libmpfr4-dbg
-
+apt-get install -y gcc-multilib g++-multilib libc6:i386 libstdc++6:i386 libc6-dev:i386
 
 # Install GCC version
 # Create an installation directorie
@@ -28,16 +28,18 @@ wget ${source_url}
 # Unpack the binaries
 mkdir -p ${temp_dir}/src
 tar -xzf "gcc-${gcc_version}.tar.gz" -C src
-./src/gcc-${gcc_version}/contrib/download_prerequisites
+cd src/gcc-${gcc_version}
+./contrib/download_prerequisites
 
 # Install according to official instructions:https://gcc.gnu.org/install/
-src/gcc-${gcc_version}/configure --prefix=${install_dir}
+cd ../..
+src/gcc-${gcc_version}/configure --prefix=${install_dir} --disable-multilib
 make -j 4
 make install
 
 # Add modulefile to modulefiles folder
-mkdir -p /etc/modulefiles/gcc
-${DIR}/Module_files/create_gcc_module_file.sh "${gcc_version}" "/etc/modulefiles/compilers/gcc-${gcc_version}"
+mkdir -p /etc/modulefiles/compilers/gcc
+${DIR}/Module_files/create_gcc_module_file.sh "${gcc_version}" "/etc/modulefiles/compilers/gcc/${gcc_version}"
 cp ${DIR}/Module_files/gcc_version /etc/modulefiles/compilers/gcc/.version
 
 # Cleanup
