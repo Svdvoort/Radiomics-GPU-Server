@@ -10,7 +10,7 @@ fi
 gcc_version=$1
 
 # Install prerequisites
-apt-get install -y libgmp3-dev libmpfr-dev libmpfr-doc libmpfr4 libmpfr4-dbg
+#apt-get install -y libgmp3-dev libmpfr-dev libmpfr-doc libmpfr4 libmpfr4-dbg
 
 
 # Install GCC version
@@ -28,7 +28,7 @@ wget ${source_url}
 # Unpack the binaries
 mkdir -p ${temp_dir}/src
 tar -xzf "gcc-${gcc_version}.tar.gz" -C src
-.src/gcc-${gcc_version}/contrib/download_prerequisites
+./src/gcc-${gcc_version}/contrib/download_prerequisites
 
 # Install according to official instructions:https://gcc.gnu.org/install/
 src/gcc-${gcc_version}/configure --prefix=${install_dir}
