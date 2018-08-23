@@ -28,17 +28,17 @@ wget ${source_url}
 # Unpack the binaries
 mkdir -p ${temp_dir}/src
 tar -xzf "gcc-${gcc_version}.tar.gz" -C src
-./contrib/download_prerequisites
-#
-# # Install according to official instructions:https://gcc.gnu.org/install/
-# src/gcc-${gcc_version}/configure --prefix=${install_dir}
-# make -j 4
-# make install
-#
-# # Add modulefile to modulefiles folder
-# mkdir -p /etc/modulefiles/gcc
-# ${DIR}/Module_files/create_gcc_module_file.sh "${gcc_version}" "/etc/modulefiles/compilers/gcc-${gcc_version}"
-# cp ${DIR}/Module_files/gcc_version /etc/modulefiles/compilers/gcc/.version
-#
-# # Cleanup
-# rm -R ${temp_dir}
+.src/gcc-${gcc_version}/contrib/download_prerequisites
+
+# Install according to official instructions:https://gcc.gnu.org/install/
+src/gcc-${gcc_version}/configure --prefix=${install_dir}
+make -j 4
+make install
+
+# Add modulefile to modulefiles folder
+mkdir -p /etc/modulefiles/gcc
+${DIR}/Module_files/create_gcc_module_file.sh "${gcc_version}" "/etc/modulefiles/compilers/gcc-${gcc_version}"
+cp ${DIR}/Module_files/gcc_version /etc/modulefiles/compilers/gcc/.version
+
+# Cleanup
+rm -R ${temp_dir}
