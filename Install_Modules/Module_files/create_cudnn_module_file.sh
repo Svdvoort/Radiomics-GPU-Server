@@ -15,6 +15,7 @@ echo "" >> "$module_file"
 echo "set cudnnroot /packages/cudnn/Cuda-${cuda_version}/${cudnn_version}/cuda" >> $module_file
 echo "prepend-path LD_LIBRARY_PATH \"\${cudnnroot}/lib64\"" >> $module_file
 echo "prepend-path LD_LIBRARY_PATH \"\${cudnnroot}/include\"" >> $module_file
+echo "setenv          CUDNN_ROOT              ${root}" >> $module_file
 
 echo "" >> $module_file
 echo "conflict cudnn" >> $module_file
