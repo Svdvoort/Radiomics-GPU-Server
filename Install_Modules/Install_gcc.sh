@@ -38,8 +38,8 @@ do
 
   # Add modulefile to modulefiles folder
   mkdir -p /etc/modulefiles/gcc
-  ${DIR}/Module_files/create_gcc_module_file.sh "${gcc_version}" "/etc/modulefiles/gcc-${gcc_version}"
-  cp ${DIR}/Module_files/gcc_version /etc/modulefiles/gcc/.version
+  ${DIR}/Module_files/create_gcc_module_file.sh "${gcc_version}" "/etc/modulefiles/compilers/gcc-${gcc_version}"
+  cp ${DIR}/Module_files/gcc_version /etc/modulefiles/compilers/gcc/.version
 
   # Cleanup
   rm -R ${temp_dir}
