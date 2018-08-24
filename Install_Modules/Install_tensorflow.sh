@@ -1,9 +1,15 @@
 #!/bin/bash
 
 tensorflow_version="1.10.0"
-python_version="3.7.0"
+python_version="3.6.6"
 
-python_tensorflow_directory="/packages/tensorflow/python_${python_version}/${tensorflow_version}"
+python_tensorflow_directory="/packages/tensorflow/wheels/python_${python_version}/${tensorflow_version}"
+cuda_version=9.2.148
+cudnn_version=9.2-v7.1
+tensorrt_version=4.0.1.6
+nccl_version=2.2.13
+bazel_version=0.16.1
+gcc_version=7.3.0
 
 # Load the modules for which we want to install this tensorflow
 # Start with purge to make sure we have everything we actually want
@@ -11,11 +17,14 @@ source /etc/profile.d/modules.sh
 
 module purge
 module load python/${python_version}
-module load cuda/9.2.148
-module load cudnn/9.2-v7.1
-module load tensorrt/4.0.1.6
-module load nccl/2.2.13
+module load cuda/${cuda_version}
+module load cudnn/${cudnn_version}
+module load tensorrt/${tensorrt_version}
+module load nccl/${nccl_version}
+module load bazel/${bazel_version}
+module load gcc/${gcc_version}
 
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null && pwd )"
 
 # We will install Tensorflow from source to inlude all optimizations
 
@@ -34,17 +43,8 @@ cd ${temp_dir}
 # Need curl
 apt-get -y install curl
 
-# Start by installing bazel
-add-apt-repository -y ppa:webupd8team/java
-apt-get update
-apt-get -y install oracle-java8-installer
-
-echo "deb [arch=amd64] http://storage.googleapis.com/bazel-apt stable jdk1.8" | tee /etc/apt/sources.list.d/bazel.list
-curl https://bazel.build/bazel-release.pub.gpg | apt-key add -
-apt-get update
-apt-get -y install bazel
-
 # Get python dependencies for tensorflow
+# NOTE: change this so that all the packages have a specified version
 python_version_elements=(${python_version//./ })
 python_main_version="${python_version_elements[0]}"
 if [ $python_main_version = "2" ]; then
@@ -70,7 +70,7 @@ echo "Accept all defaults untill it asks for CUDA installation, here selection y
 echo "Then input the following:"
 echo "Cuda version: 9.2"
 echo "Cuda path: /usr/local/cuda-9.2/"
-echo "cuDNN version: 7.1"
+echo "cuDNN version: 7.2"
 echo "cuDNN path: /packages/cudnn/Cuda-9.2/v7.1/cuda/"
 echo "Accept TensorRT support"
 echo "TensorRT path: /packages/tensorrt/4.0.1.6/TensorRT-4.0.1.6/"
@@ -93,7 +93,11 @@ echo "Check out the comments in source for a fix"
 bazel build --config=opt --verbose_failures //tensorflow/tools/pip_package:build_pip_package
 
 bazel-bin/tensorflow/tools/pip_package/build_pip_package ${python_tensorflow_directory}
-/packages/python/${python_version}/bin/pip${short_python_version} install --ignore-installed ${python_tensorflow_directory}/*.whl
+/packages/python/${python_version}/bin/pip${short_python_version} install --target=/packages/tensorflow/${tensorflow_version}/Python-${python_version}/ --ignore-installed --upgrade ${python_tensorflow_directory}/*.whl
 
+# Create a modules file
+mkdir -p /etc/modulefiles/deeplearning/tensorflow
+${DIR}/Module_files/create_tensorflow_module_file.sh "${tensorflow_version}" "/etc/modulefiles/deeplearning/tensorflow/${tensorflow_version}" "${cuda_version}" "${cudnn_version}" "${tensorrt_version}" "${nccl_version}"
+cp ${DIR}/Module_files/tensorflow_version /etc/modulefiles/deeplearning/tensorflow/.version
 cd $DIR
 rm -R ${temp_dir}

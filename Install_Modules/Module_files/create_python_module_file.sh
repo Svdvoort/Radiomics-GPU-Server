@@ -13,6 +13,7 @@ echo "module-whatis \"Activate Python ${python_version}\"" >> $module_file
 echo "" >> "$module_file"
 
 # python
+echo "setenv PYTHONVERSION $python_version" >> $module_file
 echo "set pythonroot /packages/python/${python_version}" >> $module_file
 echo "prepend-path PATH \"\${pythonroot}/bin\"" >> $module_file
 echo "prepend-path LD_LIBRARY_PATH \"\${pythonroot}/lib:\${pythonroot}/lib/${short_python_version}\"" >> $module_file

@@ -18,9 +18,12 @@ ln -s /usr/share/Modules/init/profile.csh /etc/profile.d/modules.csh
 
 # We make some directories that we automatically want to load on startup
 touch /usr/share/Modules/init/.modulespath
-echo "/etc/modulefiles" >> /usr/share/Modules/init/.modulespath
 echo "/etc/modulefiles/compilers" >> /usr/share/Modules/init/.modulespath
 echo "/etc/modulefiles/nvidia-tools" >> /usr/share/Modules/init/.modulespath
+echo "/etc/modulefiles/deeplearning" >> /usr/share/Modules/init/.modulespath
+
+# This goes last so it shows up last
+echo "/etc/modulefiles" >> /usr/share/Modules/init/.modulespath
 
 
 # Source them so they're loaded Now
