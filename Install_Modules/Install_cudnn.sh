@@ -1,8 +1,8 @@
 #!/bin/bash
 
 # cudnn can't actually be installed automatically, we need to download it manually.
+# Obtainable from the nvidia website after registration: https://developer.nvidia.com/cudnn
 # Therefore we define the path to the downloaded file here
-# Make sure you download the library(.tgz), not the runtim library (.deb)!
 cudnn_file="/home/svdvoort/Downloads/cudnn-9.2-linux-x64-v7.1.tgz"
 
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null && pwd )"
@@ -31,6 +31,6 @@ mkdir -p ${install_folder}
 
 tar -xzf ${cudnn_file} -C ${install_folder}
 
-mkdir -p /etc/modulefiles/cudnn/
-${DIR}/Module_files/create_cudnn_module_file.sh "${cuda_version}" "${cudnn_version}" "/etc/modulefiles/cudnn/${cuda_version}-${cudnn_version}"
-cp ${DIR}/Module_files/cudnn_version /etc/modulefiles/cudnn/.version
+mkdir -p /etc/modulefiles/nvidia-tools/cudnn/
+${DIR}/Module_files/create_cudnn_module_file.sh "${cuda_version}" "${cudnn_version}" "/etc/modulefiles/nvidia-tools/cudnn/${cuda_version}-${cudnn_version}"
+cp ${DIR}/Module_files/cudnn_version /etc/modulefiles/nvidia-tools/cudnn/.version
