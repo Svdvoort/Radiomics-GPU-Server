@@ -34,7 +34,7 @@ cd src/gcc-${gcc_version}
 # Install according to official instructions:https://gcc.gnu.org/install/
 cd ../..
 src/gcc-${gcc_version}/configure --prefix=${install_dir} --disable-multilib
-make -j 4
+make #-j 4
 make install
 
 # Add modulefile to modulefiles folder

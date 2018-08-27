@@ -5,12 +5,18 @@ if [[ $EUID -ne 0 ]]; then
    exit 1
 fi
 
+gcc_version=7.3.0
+
 # This fix is needed since some Python versions do not find the openssl
 # library otherwise, and thus can't use pip
 apt-get install -y libffi-dev libssl-dev zlib1g-dev graphviz graphviz-dev
 apt-get install -y build-essential python-dev libssl-dev libncurses*-dev liblzma-dev libgdbm-dev libsqlite3-dev libbz2-dev tk-dev
 
-export LD_LIBRARY_PATH=/usr/lib/ssl/:$LD_LIBRARY_PATH
+source /etc/profile.d/modules.sh
+
+module purge
+module load gcc/${gcc_version}
+
 
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null && pwd )"
 # Update python version to the required version. Rest of script should work
@@ -19,6 +25,7 @@ python_version=$1
 
 # Fix openssl for python:
 if pyton_version=="2.7.12"; then
+	export LD_LIBRARY_PATH=/usr/lib/ssl/:$LD_LIBRARY_PATH
 	export LDFLAGS="-L/packages/openssl/1.0.1u/lib/ -L/packages/openssl/1.0.1u/lib64/"
 	export LD_LIBRARY_PATH="/packages/openssl/1.0.1u/lib/:/packages/openssl/1.0.1u/lib64/"
 	export CPPFLAGS="-I/packages/openssl/1.0.1u/include -I/packages/openssl/1.0.1u/include/openssl"
