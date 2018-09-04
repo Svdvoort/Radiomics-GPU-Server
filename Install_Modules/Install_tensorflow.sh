@@ -1,7 +1,7 @@
 #!/bin/bash
 
 tensorflow_version="1.9.0"
-python_version="2.7.15"
+python_version="3.6.6"
 
 python_tensorflow_directory="/packages/tensorflow/wheels/python_${python_version}/${tensorflow_version}"
 cuda_version=9.2.148
@@ -69,7 +69,7 @@ echo "Now going to configure tensorflow"
 echo "Accept all defaults untill it asks for CUDA installation, here selection yes"
 echo "Then input the following:"
 echo "Cuda version: 9.2"
-echo "Cuda path: /packages/cuda/9.2."
+echo "Cuda path: /packages/cuda/9.2.148"
 echo "cuDNN version: 7.1"
 echo "cuDNN path: /packages/cudnn/Cuda-9.2/v7.1/cuda/"
 echo "Accept TensorRT support"
