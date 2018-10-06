@@ -1,13 +1,13 @@
 #!/bin/bash
 
-tensorflow_version="1.9.0"
+tensorflow_version="1.11.0"
 python_version="3.6.6"
 
 python_tensorflow_directory="/packages/tensorflow/wheels/python_${python_version}/${tensorflow_version}"
 cuda_version=9.2.148
-cudnn_version=9.2-v7.1
+cudnn_version=9.2-v7.3.1.20
 tensorrt_version=4.0.1.6
-nccl_version=2.2.13
+nccl_version=2.3.5
 bazel_version=0.16.1
 gcc_version=7.3.0
 
@@ -70,8 +70,8 @@ echo "Accept all defaults untill it asks for CUDA installation, here selection y
 echo "Then input the following:"
 echo "Cuda version: 9.2"
 echo "Cuda path: /packages/cuda/9.2.148"
-echo "cuDNN version: 7.1"
-echo "cuDNN path: /packages/cudnn/Cuda-9.2/v7.1/cuda/"
+echo "cuDNN version: 7.3"
+echo "cuDNN path: /packages/cudnn/Cuda-9.2/v7.3/cuda/"
 echo "Accept TensorRT support"
 echo "TensorRT path: /packages/tensorrt/4.0.1.6/TensorRT-4.0.1.6/"
 echo "nccl version 2.2"
