@@ -116,7 +116,7 @@ echo "If bazel gives an error: Encountered error while reading extension file 'c
 echo "and: All mirrors are down: [java.lang.RuntimeException: Unexpected error: java.security.InvalidAlgorithmParameterException: the trustAnchors parameter must be non-empty]"
 echo "Check out the comments in source for a fix"
 
-bazel build --config=opt --verbose_failures //tensorflow/tools/pip_package:build_pip_package
+bazel build --config=opt --config=cuda --cxxopt="-D_GLIBCXX_USE_CXX11_ABI=0" --verbose_failures //tensorflow/tools/pip_package:build_pip_package
 
 bazel-bin/tensorflow/tools/pip_package/build_pip_package ${python_tensorflow_directory}
 /packages/python/${python_version}/bin/pip${short_python_version} install --target=/packages/tensorflow/${tensorflow_version}/Python-${python_version}/ --ignore-installed --upgrade ${python_tensorflow_directory}/*.whl
