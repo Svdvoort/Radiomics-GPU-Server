@@ -1,15 +1,20 @@
 #!/bin/bash
+## SETTINGS
+tensorflow_version=1.10.1
+python_version=3.6.6
 
-tensorflow_version="1.11.0"
-python_version="3.6.6"
-
-python_tensorflow_directory="/packages/tensorflow/wheels/python_${python_version}/${tensorflow_version}"
 cuda_version=9.2.148
 cudnn_version=9.2-v7.3.1.20
 tensorrt_version=4.0.1.6
 nccl_version=2.3.5
-bazel_version=0.16.1
+bazel_version=0.18.1
 gcc_version=7.3.0
+
+## PROGRAM, do not edit below this line
+if [[ $EUID -ne 0 ]]; then
+   echo "This script must be run as root"
+   exit 1
+fi
 
 # Load the modules for which we want to install this tensorflow
 # Start with purge to make sure we have everything we actually want
@@ -27,11 +32,9 @@ module load gcc/${gcc_version}
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null && pwd )"
 
 # We will install Tensorflow from source to inlude all optimizations
+python_tensorflow_directory="/packages/tensorflow/wheels/python_${python_version}/${tensorflow_version}"
 
-if [[ $EUID -ne 0 ]]; then
-   echo "This script must be run as root"
-   exit 1
-fi
+
 
 /packages/python/${python_version}/bin/pip${short_python_version} install --upgrade pip
 /packages/python/${python_version}/bin/pip${short_python_version} install setuptools==39.1.0
@@ -53,30 +56,53 @@ if [ $python_main_version = "2" ]; then
   /packages/python/${python_version}/bin/pip install numpy
   /packages/python/${python_version}/bin/pip install enum34
   /packages/python/${python_version}/bin/pip install mock
+  /packages/python/${python_version}/bin/pip install keras_applications --no-deps
+  /packages/python/${python_version}/bin/pip install keras_preprocessing --no-deps
 elif [ $python_main_version = "3" ]; then
   # Python 3
   apt-get install -y python3-dev python3-pip python3-wheel
   /packages/python/${python_version}/bin/pip3 install numpy
   /packages/python/${python_version}/bin/pip3 install enum34
   /packages/python/${python_version}/bin/pip3 install mock
+  /packages/python/${python_version}/bin/pip3 install keras_applications --no-deps
+  /packages/python/${python_version}/bin/pip3 install keras_preprocessing --no-deps
 fi
 #
 # # Get tensorflow
 git clone https://github.com/tensorflow/tensorflow
 cd tensorflow
 git checkout v${tensorflow_version}
+
+cuda_version_elements=(${cuda_version//./ })
+short_cuda_version="${cuda_version_elements[0]}.${cuda_version_elements[1]}"
+
+splitted_cudnn_version=(${cudnn_version//v/ })
+pure_cudnn_version="${splitted_cudnn_version[1]}"
+cudnn_version_elements=(${pure_cudnn_version//./ })
+short_cudnn_version="${cudnn_version_elements[0]}.${cudnn_version_elements[1]}"
+
+nccl_version_elements=(${nccl_version//./ })
+short_nccl_version="${nccl_version_elements[0]}.${nccl_version_elements[1]}"
+
+
 echo "Now going to configure tensorflow"
+if [ $python_main_version = "2" ]; then
+    echo "Input this for Python version: /packages/python/${python_version}/bin/python"
+elif [ $python_main_version = "3" ]; then
+    echo "Input this for Python version: /packages/python/${python_version}/bin/python3"
+fi
 echo "Accept all defaults untill it asks for CUDA installation, here selection yes"
 echo "Then input the following:"
-echo "Cuda version: 9.2"
-echo "Cuda path: /packages/cuda/9.2.148"
-echo "cuDNN version: 7.3"
-echo "cuDNN path: /packages/cudnn/Cuda-9.2/v7.3/cuda/"
+echo "Cuda version: ${short_cuda_version}"
+echo "Cuda path: /packages/cuda/${cuda_version}/"
+echo "cuDNN version: ${short_cudnn_version}"
+echo "cuDNN path: /packages/cudnn/Cuda-${short_cuda_version}/v${pure_cudnn_version}/cuda/"
 echo "Accept TensorRT support"
-echo "TensorRT path: /packages/tensorrt/4.0.1.6/TensorRT-4.0.1.6/"
-echo "nccl version 2.2"
-echo "nccl path: /packages/nccl/2.2.13/nccl_2.2.13-1+cuda9.2_x86_64/"
+echo "TensorRT path: /packages/tensorrt/${tensorrt_version}/TensorRT-${tensorrt_version}/"
+echo "nccl version: ${short_nccl_version}"
+echo "nccl path: /packages/nccl/${nccl_version}/nccl_${nccl_version}+cuda${short_cuda_version}_x86_64/"
 echo "Apart from this accept all default values again"
+
 ./configure
 
 # There is an error in Ubuntu 18.04 which will make bazel not get the correct packages

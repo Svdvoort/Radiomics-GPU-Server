@@ -5,17 +5,13 @@ if [[ $EUID -ne 0 ]]; then
    exit 1
 fi
 
-https://github.com/bazelbuild/bazel/releases/download/0.16.1/bazel-0.16.1-dist.zip
-https://github.com/bazelbuild/bazel/releases/download/0.16.0/bazel-0.16.0-dist.zip
+bazel_version=0.18.1
 
 # This fix is needed since some Python versions do not find the openssl
 # library otherwise, and thus can't use pip
 apt-get install -y build-essential openjdk-8-jdk python zip unzip
 
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null && pwd )"
-# Update python version to the required version. Rest of script should work
-# Don't forget to make a module script and a version file if it doesn't exist yet!
-bazel_version=$1
 
 temp_dir=/home/admin/temp_packages/bazel_"${bazel_version}"
 # Make folder to store temporary files and get source
