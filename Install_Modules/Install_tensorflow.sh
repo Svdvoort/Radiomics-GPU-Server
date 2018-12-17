@@ -1,12 +1,12 @@
 #!/bin/bash
 ## SETTINGS
-tensorflow_version=1.10.1
-python_version=3.6.6
+tensorflow_version=1.10.0
+python_version=3.5.6
 
 cuda_version=9.2.148
-cudnn_version=9.2-v7.3.1.20
+cudnn_version=9.2-v7.1
 tensorrt_version=4.0.1.6
-nccl_version=2.3.5
+nccl_version=2.2.13
 bazel_version=0.18.1
 gcc_version=7.3.0
 
@@ -100,7 +100,7 @@ echo "cuDNN path: /packages/cudnn/Cuda-${short_cuda_version}/v${pure_cudnn_versi
 echo "Accept TensorRT support"
 echo "TensorRT path: /packages/tensorrt/${tensorrt_version}/TensorRT-${tensorrt_version}/"
 echo "nccl version: ${short_nccl_version}"
-echo "nccl path: /packages/nccl/${nccl_version}/nccl_${nccl_version}+cuda${short_cuda_version}_x86_64/"
+echo "nccl path: /packages/nccl/${nccl_version}/nccl_${nccl_version}-1+cuda${short_cuda_version}_x86_64/"
 echo "Apart from this accept all default values again"
 
 ./configure

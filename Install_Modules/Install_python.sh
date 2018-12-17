@@ -6,10 +6,10 @@ if [[ $EUID -ne 0 ]]; then
 fi
 
 gcc_version=7.3.0
-
+python_version=3.6.6
 # This fix is needed since some Python versions do not find the openssl
 # library otherwise, and thus can't use pip
-apt-get install -y libffi-dev libssl-dev zlib1g-dev graphviz graphviz-dev
+apt-get install -y curl libffi-dev libssl-dev zlib1g-dev graphviz graphviz-dev
 apt-get install -y build-essential python-dev libssl-dev libncurses*-dev liblzma-dev libgdbm-dev libsqlite3-dev libbz2-dev tk-dev
 
 source /etc/profile.d/modules.sh
@@ -19,9 +19,7 @@ module load gcc/${gcc_version}
 
 
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null && pwd )"
-# Update python version to the required version. Rest of script should work
-# Don't forget to make a module script and a version file if it doesn't exist yet!
-python_version=$1
+
 
 # Fix openssl for python:
 if pyton_version=="2.7.12"; then
@@ -47,7 +45,7 @@ make -j8
 make install
 
 # Copy modules files to correct directories
-mkdir -p /etc/modulefiles/python
+mkdir -p /etc/modulefiles/compilers/python
 ${DIR}/Module_files/create_python_module_file.sh "${python_version}" "/etc/modulefiles/compilers/python/${python_version}"
 cp ${DIR}/Module_files/python_version /etc/modulefiles/compilers/python/.version
 

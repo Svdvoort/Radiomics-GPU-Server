@@ -5,7 +5,7 @@ if [[ $EUID -ne 0 ]]; then
    exit 1
 fi
 
-bazel_version=0.18.1
+bazel_version=0.20.0
 
 # This fix is needed since some Python versions do not find the openssl
 # library otherwise, and thus can't use pip
