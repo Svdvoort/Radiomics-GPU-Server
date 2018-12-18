@@ -16,3 +16,6 @@ mkdir -p /home/admin
 cp -R ../../Radiomics-GPU-Server /home/admin
 
 mkdir -p /packages
+
+# Create group to add users to
+groupadd researchers

@@ -9,10 +9,10 @@ fi
 
 # Add user based on first argument, check if sudo on second
 if [ "$2" = "sudo" ]; then
-  adduser "$1"
-  adduser "$1" sudo
+  adduser "$1" -G researchers
+  adduser "$1" -G sudo
 else
-  adduser "$1"
+  adduser "$1" -G researchers
 fi
 
 # Force user to change password on next log-in
