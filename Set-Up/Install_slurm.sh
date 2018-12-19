@@ -51,9 +51,18 @@ systemctl start munge
 apt-get install -y slurmdbd slurm-wlm-basic-plugins slurm-wlm slurm-wlm-torque slurmctld slurmd
 
 # Install slurm on nodes
-ssh root@bigr-nzxt-5 "apt-get install -y slurmdbd slurmd"
+ssh root@bigr-nzxt-5 "apt-get install -y slurmdbd slurm-wlm-basic-plugins slurm-wlm-torque slurmd"
 
+cp ./Templates/slurm.conf /etc/slurm-llnl/slurm.conf
+cp ./Templates/cgroup.conf /etc/slurm-llnl/cgroup.conf
+cp ./Templates/create_tmp_prolog /etc/slurm-llnl/create_tmp_prolog
+cp ./Templates/create_tmp_epilog /etc/slurm-llnl/create_tmp_epilog
+cp ./Templates/gres_bigr_nzxt_7.conf /etc/slurm-llnl/gres.conf
 scp /etc/slurm-llnl/slurm.conf root@bigr-nzxt-5:/etc/slurm-llnl/slurm.conf
+scp /etc/slurm-llnl/cgroup.conf root@bigr-nzxt-5:/etc/slurm-llnl/cgroup.conf
+scp /etc/slurm-llnl/create_tmp_prolog root@bigr-nzxt-5:/etc/slurm-llnl/create_tmp_prolog
+scp /etc/slurm-llnl/create_tmp_epilog root@bigr-nzxt-5:/etc/slurm-llnl/create_tmp_epilog
+scp ./Templates/gres_bigr_nzxt_5.conf root@bigr-nzxt-5:/etc/slurm-llnl/gres.conf
 
 mkdir -p /var/spool/slurmctld
 chown slurm: /var/spool/slurmctld
@@ -62,17 +71,32 @@ touch /var/log/slurmctld.log
 chown slurm: /var/log/slurmctld.log
 touch /var/log/slurm_jobacct.log /var/log/slurm_jobcomp.log
 chown slurm: /var/log/slurm_jobacct.log /var/log/slurm_jobcomp.log
+mkdir -p /var/run/slurm-llnl/
+chown slurm: /var/run/slurm-llnl/
+chmod 755 /var/run/slurm-llnl/
+touch /var/run/slurm-llnl/slurmd.pid
+chown slurm: /var/run/slurm-llnl/slurmd.pid
+mkdir -p /slurmtmp
+chmod 777 /slurtmp/
+chown slurm: /slurmtmp
+
 
 ssh root@bigr-nzxt-5 "mkdir -p /var/spool/slurmd"
 ssh root@bigr-nzxt-5 "chown slurm: /var/spool/slurmd"
 ssh root@bigr-nzxt-5 "chmod 755 /var/spool/slurmd"
 ssh root@bigr-nzxt-5 "touch /var/log/slurmd.log"
 ssh root@bigr-nzxt-5 "chown slurm: /var/log/slurmd.log"
+ssh root@bigr-nzxt-5 "mkdir -p /var/run/slurm-llnl/"
+ssh root@bigr-nzxt-5 "chown slurm: /var/run/slurm-llnl/"
+ssh root@bigr-nzxt-5 "chmod 755 /var/run/slurm-llnl/"
+ssh root@bigr-nzxt-5 "mkdir -p /slurmtmp"
+ssh root@bigr-nzxt-5 "chmod 777 /slurtmp/"
+ssh root@bigr-nzxt-5 "chown slurm: /slurmtmp"
 
-apt-get install ntp -y
-chkconfig ntpd on
-ntpdate pool.ntp.org
-systemctl start ntpd
+
+systemctl enable slurmctld.service
+systemctl start slurmctld.service
+systemctl status slurmctld.service
 
 ssh root@bigr-nzxt-5 "systemctl enable slurmd.service"
 ssh root@bigr-nzxt-5 "systemctl start slurmd.service"
@@ -81,7 +105,3 @@ ssh root@bigr-nzxt-5 "systemctl status slurmd.service"
 systemctl enable slurmd.service
 systemctl start slurmd.service
 systemctl status slurmd.service
-
-systemctl enable slurmctld.service
-systemctl start slurmctld.service
-systemctl status slurmctld.service

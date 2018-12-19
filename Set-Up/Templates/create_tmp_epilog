@@ -1,0 +1,4 @@
+#!/bin/bash
+# create tmpdirs; one on each possible node (and the prolog is running on every node)
+rm -rf /slurmtmp/${SLURM_JOB_USER}.${SLURM_JOB_ID}
+
