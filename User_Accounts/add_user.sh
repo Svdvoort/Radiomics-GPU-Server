@@ -9,10 +9,10 @@ fi
 
 # Add user based on first argument, check if sudo on second
 if [ "$2" = "sudo" ]; then
-  adduser "$1" -G researchers
-  adduser "$1" -G sudo
+  adduser "$1" --ingroup researchers
+  adduser "$1" --ingroup sudo
 else
-  adduser "$1" -G researchers
+  adduser "$1" --ingroup researchers
 fi
 
 # Force user to change password on next log-in
@@ -26,3 +26,5 @@ chmod -R 755 "/media/data/${1}"
 
 # Also add to slurm system
 sacctmgr -i create user $1 defaultaccount=researchers partition=GPU
+
+edquota "$1"

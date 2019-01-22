@@ -2,5 +2,5 @@
 # create tmpdirs; one on each possible node (and the prolog is running on every node)
 SLURM_TMPDIR=/slurmtmp/${SLURM_JOB_USER}.${SLURM_JOB_ID}
 mkdir -p "${SLURM_TMPDIR}"
-chown ${SLURM_JOB_USER}: ${SLURM_TMPDIR}
+chmod -R 777 ${SLURM_TMPDIR}
 

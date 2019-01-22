@@ -8,7 +8,16 @@ fi
 
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null && pwd )"
 
-apt-get install -y mariadb-server mariadb-server-10.1
+#apt-get install -y mysql-server
+#mysql -u root -e "create database slurm_acct_db"
+#mysql -u root -e "create user 'slurm'@'localhost';"
+#mysql -u root -e "set password for 'slurm'@'localhost' = password('slurmdbpass');"
+#mysql -u root -e "grant usage on *.* to 'slurm'@'localhost';"
+#mysql -u root -e "grant all privileges on slurm_acct_db.* to 'slurm'@'localhost';"
+#mysql -u root -e "flush privileges;"
+
+
+
 
 export MUNGEUSER=991
 groupadd -g $MUNGEUSER munge
@@ -58,6 +67,7 @@ cp ./Templates/cgroup.conf /etc/slurm-llnl/cgroup.conf
 cp ./Templates/create_tmp_prolog /etc/slurm-llnl/create_tmp_prolog
 cp ./Templates/create_tmp_epilog /etc/slurm-llnl/create_tmp_epilog
 cp ./Templates/gres_bigr_nzxt_7.conf /etc/slurm-llnl/gres.conf
+#cp ./Templates/slurmdbd.conf /etc/slurm-llnl/slurmdbd.conf
 scp /etc/slurm-llnl/slurm.conf root@bigr-nzxt-5:/etc/slurm-llnl/slurm.conf
 scp /etc/slurm-llnl/cgroup.conf root@bigr-nzxt-5:/etc/slurm-llnl/cgroup.conf
 scp /etc/slurm-llnl/create_tmp_prolog root@bigr-nzxt-5:/etc/slurm-llnl/create_tmp_prolog
@@ -77,7 +87,7 @@ chmod 755 /var/run/slurm-llnl/
 touch /var/run/slurm-llnl/slurmd.pid
 chown slurm: /var/run/slurm-llnl/slurmd.pid
 mkdir -p /slurmtmp
-chmod 777 /slurtmp/
+chmod 777 /slurmtmp/
 chown slurm: /slurmtmp
 
 
@@ -90,7 +100,7 @@ ssh root@bigr-nzxt-5 "mkdir -p /var/run/slurm-llnl/"
 ssh root@bigr-nzxt-5 "chown slurm: /var/run/slurm-llnl/"
 ssh root@bigr-nzxt-5 "chmod 755 /var/run/slurm-llnl/"
 ssh root@bigr-nzxt-5 "mkdir -p /slurmtmp"
-ssh root@bigr-nzxt-5 "chmod 777 /slurtmp/"
+ssh root@bigr-nzxt-5 "chmod 777 /slurmtmp/"
 ssh root@bigr-nzxt-5 "chown slurm: /slurmtmp"
 
 
