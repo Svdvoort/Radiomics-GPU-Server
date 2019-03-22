@@ -1,13 +1,13 @@
 #!/bin/bash
 ## SETTINGS
-tensorflow_version=1.10.0
-python_version=3.5.6
+tensorflow_version=1.12.0
+python_version=3.6.7
 
 cuda_version=9.2.148
-cudnn_version=9.2-v7.1
+cudnn_version=9.2-v7.3.1.20
 tensorrt_version=4.0.1.6
-nccl_version=2.2.13
-bazel_version=0.18.1
+nccl_version=2.3.5
+bazel_version=0.23.2
 gcc_version=7.3.0
 
 ## PROGRAM, do not edit below this line

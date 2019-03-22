@@ -3,7 +3,7 @@
 # cudnn can't actually be installed automatically, we need to download it manually.
 # Obtainable from the nvidia website after registration: https://developer.nvidia.com/cudnn
 # Therefore we define the path to the downloaded file here
-cudnn_file="/home/svandervoort/Downloads/cudnn-9.2-linux-x64-v7.1.tgz"
+cudnn_file="/home/gpuuser/TEMP/cudnn-10.1-linux-x64-v7.5.0.56.tgz"
 
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null && pwd )"
 

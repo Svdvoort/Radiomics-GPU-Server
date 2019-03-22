@@ -1,7 +1,6 @@
 #!/bin/bash
 
-tensorrt_version="4.0.1.6"
-tensorrt_file="/home/svandervoort/Downloads/TensorRT-4.0.1.6.Ubuntu-16.04.4.x86_64-gnu.cuda-9.2.cudnn7.1.tar.gz"
+tensorrt_file="/home/gpuuser/TEMP/TensorRT-5.1.2.2.Ubuntu-18.04.1.x86_64-gnu.cuda-10.1.cudnn7.5.tar.gz"
 
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null && pwd )"
 
@@ -19,11 +18,24 @@ tensorrt_file_name=(${tensorrt_file//\// })
 tensorrt_file_name="${tensorrt_file_name[-1]}"
 
 
-install_folder="/packages/tensorrt/${tensorrt_version}"
+
+split_file_name=(${tensorrt_file_name//-/ })
+tensorrt_version_split=(${split_file_name[1]//.Ubuntu/ })
+
+cuda_split=(${split_file_name[4]//.cudnn/ })
+
+#cuda_split=(${cuda_split//.cudnn/ })
+
+cuda_version="${cuda_split[0]}"
+tensorrt_version="${tensorrt_version_split[0]}"
+echo ${tensorrt_version}
+
+
+install_folder="/packages/tensorrt/Cuda-${cuda_version}/${tensorrt_version}"
 mkdir -p ${install_folder}
 
-tar -xzf ${tensorrt_file} -C ${install_folder}
+tar -xzf ${tensorrt_file} --strip-components=1 -C ${install_folder}
 
 mkdir -p /etc/modulefiles/nvidia-tools/tensorrt
-${DIR}/Module_files/create_tensorrt_module_file.sh "${tensorrt_version}" "/etc/modulefiles/nvidia-tools/tensorrt/${tensorrt_version}"
+${DIR}/Module_files/create_tensorrt_module_file.sh "${cuda_version}" "${tensorrt_version}" "/etc/modulefiles/nvidia-tools/tensorrt/${cuda_version}-${tensorrt_version}"
 cp ${DIR}/Module_files/tensorrt_version /etc/modulefiles/nvidia-tools/tensorrt/.version

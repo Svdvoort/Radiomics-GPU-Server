@@ -1,6 +1,6 @@
 #!/bin/bash
 
-cuda_version=10.0.130
+cuda_version=10.1.105
 
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null && pwd )"
 
@@ -34,6 +34,9 @@ elif [ ${cuda_version} = "8.0.61" ]; then
 cuda_file_url="https://developer.nvidia.com/compute/cuda/8.0/Prod2/local_installers/cuda-repo-ubuntu1604-8-0-local-ga2_8.0.61-1_amd64-deb"
 elif [ ${cuda_version} = "10.0.130" ]; then
 cuda_file_url="https://developer.nvidia.com/compute/cuda/10.0/Prod/local_installers/cuda_10.0.130_410.48_linux"
+elif [ ${cuda_version} = "10.1.105" ]; then
+cuda_file_url="https://developer.nvidia.com/compute/cuda/10.1/Prod/local_installers/cuda_10.1.105_418.39_linux.run"
+
 else
 echo "Invalid cuda version given: ${cuda_version}"
 exit 1
@@ -45,7 +48,7 @@ wget $cuda_file_url
 
 # # According to installation instructions on nvidia website
 chmod +x ${run_file}
-./${run_file} --silent --driver --toolkit --toolkitpath="/packages/cuda/${cuda_version}" --verbose
+./${run_file} --silent --driver --toolkit --toolkitpath="/packages/cuda/${cuda_version}"
 
 # Now we have to add them to the modules environment
 mkdir -p /etc/modulefiles/nvidia-tools/cuda/
