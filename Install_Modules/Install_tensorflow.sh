@@ -1,14 +1,14 @@
 #!/bin/bash
 ## SETTINGS
-tensorflow_version=1.12.0
-python_version=3.6.7
+tensorflow_version=1.13.1
+python_version=3.6.6
 
-cuda_version=9.2.148
-cudnn_version=9.2-v7.3.1.20
-tensorrt_version=4.0.1.6
-nccl_version=2.3.5
-bazel_version=0.23.2
-gcc_version=7.3.0
+cuda_version=10.0.130
+cudnn_version=10.0-v7.3.1.20
+tensorrt_version=10.0-5.0.2.6
+nccl_version=10.0-2.4.2
+bazel_version=0.20.0
+gcc_version=7.4.0
 
 ## PROGRAM, do not edit below this line
 if [[ $EUID -ne 0 ]]; then

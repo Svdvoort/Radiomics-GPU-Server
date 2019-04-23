@@ -34,6 +34,8 @@ rngd -r /dev/urandom
 
 systemctl stop munge
 ssh root@bigr-nzxt-5 "systemctl stop munge"
+ssh root@bigr-nzxt-4 "systemctl stop munge"
+
 
 
 dd if=/dev/urandom bs=1 count=1024 > /etc/munge/munge.key
@@ -53,6 +55,16 @@ ssh root@bigr-nzxt-5 "chmod 400 /etc/munge/munge.key"
 ssh root@bigr-nzxt-5 "systemctl enable munge"
 ssh root@bigr-nzxt-5 "systemctl start munge"
 
+scp /etc/munge/munge.key root@bigr-nzxt-4:/etc/munge
+ssh root@bigr-nzxt-4 "apt-get install -y munge"
+ssh root@bigr-nzxt-4 "chown -R munge: /etc/munge/ /var/log/munge/"
+ssh root@bigr-nzxt-4 "chmod 0700 /etc/munge /var/log/munge"
+ssh root@bigr-nzxt-4 "chown munge: /etc/munge/munge.key"
+ssh root@bigr-nzxt-4 "chmod 400 /etc/munge/munge.key"
+
+ssh root@bigr-nzxt-4 "systemctl enable munge"
+ssh root@bigr-nzxt-4 "systemctl start munge"
+
 systemctl enable munge
 systemctl start munge
 
@@ -61,6 +73,8 @@ apt-get install -y slurmdbd slurm-wlm-basic-plugins slurm-wlm slurm-wlm-torque s
 
 # Install slurm on nodes
 ssh root@bigr-nzxt-5 "apt-get install -y slurmdbd slurm-wlm-basic-plugins slurm-wlm-torque slurmd"
+ssh root@bigr-nzxt-4 "apt-get install -y slurmdbd slurm-wlm-basic-plugins slurm-wlm-torque slurmd"
+
 
 cp ./Templates/slurm.conf /etc/slurm-llnl/slurm.conf
 cp ./Templates/cgroup.conf /etc/slurm-llnl/cgroup.conf
@@ -73,6 +87,13 @@ scp /etc/slurm-llnl/cgroup.conf root@bigr-nzxt-5:/etc/slurm-llnl/cgroup.conf
 scp /etc/slurm-llnl/create_tmp_prolog root@bigr-nzxt-5:/etc/slurm-llnl/create_tmp_prolog
 scp /etc/slurm-llnl/create_tmp_epilog root@bigr-nzxt-5:/etc/slurm-llnl/create_tmp_epilog
 scp ./Templates/gres_bigr_nzxt_5.conf root@bigr-nzxt-5:/etc/slurm-llnl/gres.conf
+
+scp /etc/slurm-llnl/slurm.conf root@bigr-nzxt-4:/etc/slurm-llnl/slurm.conf
+scp /etc/slurm-llnl/cgroup.conf root@bigr-nzxt-4:/etc/slurm-llnl/cgroup.conf
+scp /etc/slurm-llnl/create_tmp_prolog root@bigr-nzxt-4:/etc/slurm-llnl/create_tmp_prolog
+scp /etc/slurm-llnl/create_tmp_epilog root@bigr-nzxt-4:/etc/slurm-llnl/create_tmp_epilog
+scp ./Templates/gres_bigr_nzxt_4.conf root@bigr-nzxt-4:/etc/slurm-llnl/gres.conf
+
 
 mkdir -p /var/spool/slurmctld
 chown slurm: /var/spool/slurmctld
@@ -103,6 +124,18 @@ ssh root@bigr-nzxt-5 "mkdir -p /slurmtmp"
 ssh root@bigr-nzxt-5 "chmod 777 /slurmtmp/"
 ssh root@bigr-nzxt-5 "chown slurm: /slurmtmp"
 
+ssh root@bigr-nzxt-4 "mkdir -p /var/spool/slurmd"
+ssh root@bigr-nzxt-4 "chown slurm: /var/spool/slurmd"
+ssh root@bigr-nzxt-4 "chmod 755 /var/spool/slurmd"
+ssh root@bigr-nzxt-4 "touch /var/log/slurmd.log"
+ssh root@bigr-nzxt-4 "chown slurm: /var/log/slurmd.log"
+ssh root@bigr-nzxt-4 "mkdir -p /var/run/slurm-llnl/"
+ssh root@bigr-nzxt-4 "chown slurm: /var/run/slurm-llnl/"
+ssh root@bigr-nzxt-4 "chmod 755 /var/run/slurm-llnl/"
+ssh root@bigr-nzxt-4 "mkdir -p /slurmtmp"
+ssh root@bigr-nzxt-4 "chmod 777 /slurmtmp/"
+ssh root@bigr-nzxt-4 "chown slurm: /slurmtmp"
+
 
 systemctl enable slurmctld.service
 systemctl start slurmctld.service
@@ -111,6 +144,10 @@ systemctl status slurmctld.service
 ssh root@bigr-nzxt-5 "systemctl enable slurmd.service"
 ssh root@bigr-nzxt-5 "systemctl start slurmd.service"
 ssh root@bigr-nzxt-5 "systemctl status slurmd.service"
+
+ssh root@bigr-nzxt-4 "systemctl enable slurmd.service"
+ssh root@bigr-nzxt-4 "systemctl start slurmd.service"
+ssh root@bigr-nzxt-4 "systemctl status slurmd.service"
 
 systemctl enable slurmd.service
 systemctl start slurmd.service

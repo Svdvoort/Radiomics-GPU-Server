@@ -8,6 +8,7 @@ fi
 
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null && pwd )"
 
-# Run as the root user!!
+# Run as the root user!! (NOT SUDO, ROOT USER)
 ssh-keygen
 ssh-copy-id root@bigr-nzxt-5
+ssh-copy-id root@bigr-nzxt-4
