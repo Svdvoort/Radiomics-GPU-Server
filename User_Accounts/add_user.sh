@@ -27,4 +27,4 @@ chmod -R 755 "/media/data/${1}"
 # Also add to slurm system
 sacctmgr -i create user $1 defaultaccount=researchers partition=GPU
 
-edquota "$1"
+edquota -p svdvoort "$1"
