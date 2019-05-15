@@ -21,7 +21,7 @@ mkdir -p ${temp_dir}
 cd ${temp_dir}
 wget https://github.com/bazelbuild/bazel/releases/download/${bazel_version}/bazel-${bazel_version}-dist.zip
 unzip bazel-${bazel_version}-dist.zip
-./compile.sh
+JAVA_HOME="/usr/lib/jvm/java-1.8.0-openjdk-amd64/" ./compile.sh
 
 package_dir=/packages/bazel/"${bazel_version}"
 mkdir -p ${package_dir}
