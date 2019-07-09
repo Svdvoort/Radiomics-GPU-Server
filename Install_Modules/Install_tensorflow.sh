@@ -1,13 +1,13 @@
 #!/bin/bash
 ## SETTINGS
-tensorflow_version=1.13.1
-python_version=3.6.6
+tensorflow_version=1.12.3
+python_version=3.6.7
 
 cuda_version=10.0.130
-cudnn_version=10.0-v7.3.1.20
+cudnn_version=10.0-v7.5.0.56
 tensorrt_version=10.0-5.0.2.6
 nccl_version=10.0-2.4.2
-bazel_version=0.20.0
+bazel_version=0.18.1
 gcc_version=7.4.0
 
 ## PROGRAM, do not edit below this line
@@ -81,9 +81,11 @@ pure_cudnn_version="${splitted_cudnn_version[1]}"
 cudnn_version_elements=(${pure_cudnn_version//./ })
 short_cudnn_version="${cudnn_version_elements[0]}.${cudnn_version_elements[1]}"
 
-nccl_version_elements=(${nccl_version//./ })
-short_nccl_version="${nccl_version_elements[0]}.${nccl_version_elements[1]}"
+nccl_version_elements=(${nccl_version//-/ })
+short_nccl_version="${nccl_version_elements[1]}"
 
+tensorrt_version_elements=(${tensorrt_version//-/ })
+short_tensorrt_version="${tensorrt_version_elements[1]}"
 
 echo "Now going to configure tensorflow"
 if [ $python_main_version = "2" ]; then
@@ -98,9 +100,9 @@ echo "Cuda path: /packages/cuda/${cuda_version}/"
 echo "cuDNN version: ${short_cudnn_version}"
 echo "cuDNN path: /packages/cudnn/Cuda-${short_cuda_version}/v${pure_cudnn_version}/cuda/"
 echo "Accept TensorRT support"
-echo "TensorRT path: /packages/tensorrt/${tensorrt_version}/TensorRT-${tensorrt_version}/"
+echo "TensorRT path: /packages/tensorrt/Cuda-${short_cuda_version}/${short_tensorrt_version}/"
 echo "nccl version: ${short_nccl_version}"
-echo "nccl path: /packages/nccl/${nccl_version}/nccl_${nccl_version}-1+cuda${short_cuda_version}_x86_64/"
+echo "nccl path: /packages/nccl/Cuda-${short_cuda_version}/${short_nccl_version}/"
 echo "Apart from this accept all default values again"
 
 ./configure
