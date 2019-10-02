@@ -1,7 +1,7 @@
 #!/bin/bash
 
 #nccl_version="2.3.5"
-nccl_file="/home/svandervoort/TEMP/nccl_2.4.2-1+cuda10.0_x86_64.txz"
+nccl_file="/home/svandervoort/TEMP/nccl_2.4.8-1+cuda10.1_x86_64.txz"
 
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null && pwd )"
 

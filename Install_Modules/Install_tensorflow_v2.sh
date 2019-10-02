@@ -1,12 +1,12 @@
 #!/bin/bash
 ## SETTINGS
-tensorflow_version=1.14.0
+tensorflow_version=2.0.0
 python_version=3.7.4
 
-cuda_version=10.0.130
-cudnn_version=10.0-v7.5.0.56
-tensorrt_version=10.0-5.0.2.6
-nccl_version=10.0-2.4.2
+cuda_version=10.1.243
+cudnn_version=10.1-v7.6.4.38
+tensorrt_version=10.1-6.0.1.5
+nccl_version=10.1-2.4.8
 bazel_version=0.24.1
 gcc_version=7.4.0
 
@@ -94,15 +94,14 @@ elif [ $python_main_version = "3" ]; then
     echo "Input this for Python version: /packages/python/${python_version}/bin/python3"
 fi
 echo "Accept all defaults untill it asks for CUDA installation, here selection yes"
-echo "Then input the following:"
-echo "Cuda version: ${short_cuda_version}"
-echo "Cuda path: /packages/cuda/${cuda_version}/"
-echo "cuDNN version: ${short_cudnn_version}"
-echo "cuDNN path: /packages/cudnn/Cuda-${short_cuda_version}/v${pure_cudnn_version}/cuda/"
 echo "Accept TensorRT support"
-echo "TensorRT path: /packages/tensorrt/Cuda-${short_cuda_version}/${short_tensorrt_version}/"
+echo "Cuda version: ${short_cuda_version}"
+echo "cuDNN version: ${short_cudnn_version}"
+echo "TensorRT version: ${short_tensorrt_version}"
 echo "nccl version: ${short_nccl_version}"
-echo "nccl path: /packages/nccl/Cuda-${short_cuda_version}/${short_nccl_version}/"
+echo "Then input the following when asked for the paths:"
+echo "/packages/cuda/${cuda_version}/,/packages/cudnn/Cuda-${short_cuda_version}/v${pure_cudnn_version}/cuda/,/packages/tensorrt/Cuda-${short_cuda_version}/${short_tensorrt_version}/,/packages/nccl/Cuda-${short_cuda_version}/${short_nccl_version}/,/usr/lib/x86_64-linux-gnu/"
+
 echo "Apart from this accept all default values again"
 
 ./configure
@@ -118,7 +117,7 @@ echo "If bazel gives an error: Encountered error while reading extension file 'c
 echo "and: All mirrors are down: [java.lang.RuntimeException: Unexpected error: java.security.InvalidAlgorithmParameterException: the trustAnchors parameter must be non-empty]"
 echo "Check out the comments in source for a fix"
 
-bazel build --config=opt --config=cuda --cxxopt="-D_GLIBCXX_USE_CXX11_ABI=0" --verbose_failures //tensorflow/tools/pip_package:build_pip_package
+bazel build --config=opt --config=v2 --verbose_failures //tensorflow/tools/pip_package:build_pip_package
 
 bazel-bin/tensorflow/tools/pip_package/build_pip_package ${python_tensorflow_directory}
 /packages/python/${python_version}/bin/pip${short_python_version} install --target=/packages/tensorflow/${tensorflow_version}/Python-${python_version}/ --ignore-installed --upgrade ${python_tensorflow_directory}/*.whl

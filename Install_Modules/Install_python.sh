@@ -6,7 +6,7 @@ if [[ $EUID -ne 0 ]]; then
 fi
 
 gcc_version=7.3.0
-python_version=3.6.6
+python_version=3.7.4
 # This fix is needed since some Python versions do not find the openssl
 # library otherwise, and thus can't use pip
 apt-get install -y curl libffi-dev libssl-dev zlib1g-dev graphviz graphviz-dev
@@ -22,12 +22,12 @@ DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null && pwd )"
 
 
 # Fix openssl for python:
-if pyton_version=="2.7.12"; then
-	export LD_LIBRARY_PATH=/usr/lib/ssl/:$LD_LIBRARY_PATH
-	export LDFLAGS="-L/packages/openssl/1.0.1u/lib/ -L/packages/openssl/1.0.1u/lib64/"
-	export LD_LIBRARY_PATH="/packages/openssl/1.0.1u/lib/:/packages/openssl/1.0.1u/lib64/"
-	export CPPFLAGS="-I/packages/openssl/1.0.1u/include -I/packages/openssl/1.0.1u/include/openssl"
-fi
+#if pyton_version=="2.7.12"; then
+#	export LD_LIBRARY_PATH=/usr/lib/ssl/:$LD_LIBRARY_PATH
+#	export LDFLAGS="-L/packages/openssl/1.0.1u/lib/ -L/packages/openssl/1.0.1u/lib64/"
+#	export LD_LIBRARY_PATH="/packages/openssl/1.0.1u/lib/:/packages/openssl/1.0.1u/lib64/"
+#	export CPPFLAGS="-I/packages/openssl/1.0.1u/include -I/packages/openssl/1.0.1u/include/openssl"
+#fi
 
 # Make folder to store temporary files and get source
 mkdir -p /home/admin/temp_packages/python_"${python_version}"

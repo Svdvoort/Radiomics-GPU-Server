@@ -1,6 +1,6 @@
 #!/bin/bash
 
-cuda_version=10.1.105
+cuda_version=10.1.243
 
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null && pwd )"
 
@@ -36,6 +36,8 @@ elif [ ${cuda_version} = "10.0.130" ]; then
 cuda_file_url="https://developer.nvidia.com/compute/cuda/10.0/Prod/local_installers/cuda_10.0.130_410.48_linux"
 elif [ ${cuda_version} = "10.1.105" ]; then
 cuda_file_url="https://developer.nvidia.com/compute/cuda/10.1/Prod/local_installers/cuda_10.1.105_418.39_linux.run"
+elif [ ${cuda_version} = "10.1.243" ]; then
+cuda_file_url="http://developer.download.nvidia.com/compute/cuda/10.1/Prod/local_installers/cuda_10.1.243_418.87.00_linux.run"
 
 else
 echo "Invalid cuda version given: ${cuda_version}"
