@@ -9,10 +9,10 @@ fi
 
 # Add user based on first argument, check if sudo on second
 if [ "$2" = "sudo" ]; then
-  adduser -d /media/data/ "$1" --ingroup researchers
+  adduser --home "/media/data/${1}" "$1" --ingroup researchers
   adduser "$1" --ingroup sudo
 else
-  adduser -d /media/data/ "$1" --ingroup researchers
+  adduser --home "/media/data/${1}" "$1" --ingroup researchers
 fi
 
 # Force user to change password on next log-in

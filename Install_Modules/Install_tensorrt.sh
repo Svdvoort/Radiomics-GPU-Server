@@ -1,6 +1,6 @@
 #!/bin/bash
 
-tensorrt_file="/home/svandervoort/TEMP/TensorRT-6.0.1.5.Ubuntu-18.04.x86_64-gnu.cuda-10.1.cudnn7.6.tar.gz"
+tensorrt_file="/home/svdvoort/TEMP/TensorRT-6.0.1.5.Ubuntu-18.04.x86_64-gnu.cuda-10.1.cudnn7.6.tar.gz"
 
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null && pwd )"
 

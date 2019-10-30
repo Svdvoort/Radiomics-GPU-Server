@@ -50,7 +50,7 @@ wget $cuda_file_url
 
 # # According to installation instructions on nvidia website
 chmod +x ${run_file}
-./${run_file} --silent --driver --toolkit --toolkitpath="/packages/cuda/${cuda_version}"
+./${run_file} --silent --toolkit --toolkitpath="/packages/cuda/${cuda_version}"
 
 # Now we have to add them to the modules environment
 mkdir -p /etc/modulefiles/nvidia-tools/cuda/
