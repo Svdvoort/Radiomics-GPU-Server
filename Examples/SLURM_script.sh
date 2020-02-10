@@ -2,6 +2,7 @@
 #SBATCH --ntasks=6
 #SBATCH --mem=14G
 #SBATCH --gres=gpu:Quadro:1
+#SBATCH -p GPU
 #SBATCH -t 01:00:00
 #SBATCH -o /path/to/out/out_%j.log
 #SBATCH -e /path/to/out/error_%j.log
